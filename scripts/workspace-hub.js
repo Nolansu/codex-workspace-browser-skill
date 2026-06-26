@@ -5,7 +5,8 @@ const fs = require("fs/promises");
 const path = require("path");
 
 const home = process.env.HOME || "";
-const registryPath = path.join(home, ".codex", "workspace-browser-registry.json");
+const codexHome = process.env.CODEX_HOME || path.join(home, ".codex");
+const registryPath = path.join(codexHome, "workspace-browser-registry.json");
 const port = Number(process.env.PORT || process.argv[2] || 4316);
 
 function send(res, status, body, headers = {}) {
@@ -35,6 +36,15 @@ async function readRegistry() {
 
 function nameFromRoot(root) {
   return path.basename(root) || root;
+}
+
+function displayPath(rawPath) {
+  if (!rawPath) return "";
+  if (home && rawPath === home) return "~";
+  if (home && rawPath.startsWith(home + path.sep)) {
+    return "~" + rawPath.slice(home.length);
+  }
+  return rawPath;
 }
 
 const html = String.raw`<!doctype html>
@@ -148,14 +158,14 @@ const html = String.raw`<!doctype html>
       const current = data.current ? '<article class="current">' +
         '<div class="current-label">' + (data.pinned ? "本窗口锁定项目" : "最近激活项目") + '</div>' +
         '<div class="name">' + data.current.name + '</div>' +
-        '<div class="path">' + data.current.root + '</div>' +
+        '<div class="path">' + data.current.displayRoot + '</div>' +
         '<div class="meta">端口 ' + data.current.port + ' · ' + fmtTime(data.current.updatedAt) + '</div>' +
         '<div style="margin-top:10px"><a href="' + data.current.url + '">直接打开</a></div>' +
       '</article>' : "";
       list.innerHTML = data.projects.length ? current + data.projects.map(project => {
         return '<article class="item">' +
           '<div><div class="name">' + project.name + '</div>' +
-          '<div class="path">' + project.root + '</div>' +
+          '<div class="path">' + project.displayRoot + '</div>' +
           '<div class="meta">端口 ' + project.port + ' · ' + fmtTime(project.updatedAt) + '</div></div>' +
           '<a href="' + project.url + '">打开</a>' +
         '</article>';
@@ -182,6 +192,7 @@ const server = http.createServer(async (req, res) => {
         .map((project) => ({
           ...project,
           name: project.name || nameFromRoot(project.root),
+          displayRoot: displayPath(project.root),
           url: `http://127.0.0.1:${project.port}/`,
         }))
         .sort((a, b) => String(b.updatedAt || "").localeCompare(String(a.updatedAt || "")));

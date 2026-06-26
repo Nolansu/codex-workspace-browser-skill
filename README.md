@@ -6,7 +6,9 @@
 
 A lightweight Codex skill that opens local project files in the Codex in-app browser instead of macOS Finder.
 
-![Workspace Browser preview](./assets/preview.svg)
+![Workspace Browser hub screenshot](./assets/screenshot-hub.png)
+
+![Workspace Browser project screenshot](./assets/screenshot-browser.png)
 
 ## What It Does
 
@@ -94,16 +96,17 @@ Do not expose these local ports to the public internet.
 Place project images in `assets/`, then reference them from README with relative Markdown paths:
 
 ```md
-![Preview](./assets/preview.svg)
+![Workspace Browser hub screenshot](./assets/screenshot-hub.png)
 ```
 
 Recommended assets:
 
 - `assets/logo.svg` for the project logo
-- `assets/preview.svg` or `assets/preview.png` for the README hero preview
+- `assets/screenshot-hub.png` for the workspace hub
+- `assets/screenshot-browser.png` for the project file browser
 - `assets/screenshots/*.png` for real UI screenshots after release
 
-SVG assets are convenient for open source because they are small, crisp, and diffable. Real screenshots are better once the UI is stable.
+Use real screenshots for the README when the UI is stable. Keep paths anonymized, for example with `~` instead of a full local home directory.
 
 ## GitHub Maintenance Automation
 
