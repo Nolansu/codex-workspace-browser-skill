@@ -1,0 +1,44 @@
+name: Validate
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  validate:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check JavaScript syntax
+        run: |
+          node --check scripts/workspace-browser.js
+          node --check scripts/workspace-hub.js
+
+      - name: Check shell syntax
+        run: |
+          bash -n scripts/open-workspace-browser
+          bash -n scripts/open-workspace-hub
+          bash -n scripts/wbopen
+          bash -n scripts/install.sh
+          bash -n scripts/uninstall.sh
+
+      - name: Check skill frontmatter
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          text = Path("SKILL.md").read_text()
+          if not text.startswith("---\n"):
+              raise SystemExit("SKILL.md must start with YAML frontmatter")
+          parts = text.split("---\n", 2)
+          if len(parts) < 3:
+              raise SystemExit("SKILL.md frontmatter is not closed")
+          frontmatter = parts[1]
+          for key in ("name:", "description:"):
+              if key not in frontmatter:
+                  raise SystemExit(f"Missing {key} in SKILL.md frontmatter")
+          print("SKILL.md frontmatter ok")
+          PY

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">Workspace Browser preview</title>
+  <desc id="desc">Preview of a local project hub and browser UI.</desc>
+  <rect width="1280" height="720" fill="#f7f7f4"/>
+  <rect x="80" y="72" width="1120" height="576" fill="#ffffff" stroke="#deded8" stroke-width="2"/>
+  <rect x="80" y="72" width="1120" height="64" fill="#0f172a"/>
+  <text x="112" y="114" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="26" font-weight="700" fill="#ffffff">Codex Workspace Hub</text>
+  <rect x="112" y="176" width="1056" height="112" fill="#eef3ff" stroke="#3b82f6" stroke-width="4"/>
+  <text x="144" y="220" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="18" font-weight="700" fill="#2f6fed">Pinned project</text>
+  <text x="144" y="256" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="28" font-weight="700" fill="#1d1d1f">current-workspace</text>
+  <rect x="1004" y="212" width="124" height="42" fill="#2f6fed"/>
+  <text x="1033" y="240" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="18" font-weight="700" fill="#ffffff">Open</text>
+  <rect x="112" y="328" width="500" height="230" fill="#ffffff" stroke="#deded8" stroke-width="2"/>
+  <rect x="652" y="328" width="516" height="230" fill="#ffffff" stroke="#deded8" stroke-width="2"/>
+  <g fill="#3b82f6">
+    <rect x="150" y="370" width="82" height="62"/>
+    <path d="M150 370h48l20 18h14v44h-82z"/>
+    <rect x="268" y="370" width="82" height="62"/>
+    <path d="M268 370h48l20 18h14v44h-82z"/>
+    <rect x="386" y="370" width="82" height="62"/>
+    <path d="M386 370h48l20 18h14v44h-82z"/>
+  </g>
+  <g font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="16" fill="#6b6b72">
+    <text x="150" y="462">scripts</text>
+    <text x="268" y="462">assets</text>
+    <text x="386" y="462">agents</text>
+  </g>
+  <rect x="690" y="370" width="430" height="18" fill="#1d1d1f"/>
+  <rect x="690" y="410" width="330" height="14" fill="#6b6b72"/>
+  <rect x="690" y="444" width="380" height="14" fill="#6b6b72"/>
+  <rect x="690" y="478" width="250" height="14" fill="#6b6b72"/>
+</svg>

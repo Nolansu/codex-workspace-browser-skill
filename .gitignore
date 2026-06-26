@@ -1,0 +1,10 @@
+.DS_Store
+node_modules/
+*.log
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+workspace-browser-registry.json
+coverage/
+dist/
+tmp/

@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+PORT="${1:-4316}"
+CODEX_HOME="${CODEX_HOME:-$HOME/.codex}"
+SERVER="$CODEX_HOME/tools/workspace-hub.js"
+LOG_DIR="$CODEX_HOME/logs"
+LAUNCH_DIR="$HOME/Library/LaunchAgents"
+NODE_BIN="$(command -v node)"
+
+if [ ! -f "$SERVER" ]; then
+  echo "Workspace hub server not found: $SERVER" >&2
+  exit 1
+fi
+
+mkdir -p "$LOG_DIR" "$LAUNCH_DIR"
+
+if lsof -nP -iTCP:"$PORT" -sTCP:LISTEN >/dev/null 2>&1; then
+  echo "Workspace hub already running"
+  echo "URL: http://127.0.0.1:$PORT/"
+  exit 0
+fi
+
+LABEL="com.codex.workspace-hub.$PORT"
+PLIST="$LAUNCH_DIR/$LABEL.plist"
+LOG_FILE="$LOG_DIR/workspace-hub-$PORT.log"
+
+launchctl bootout "gui/$(id -u)/$LABEL" >/dev/null 2>&1 || true
+
+LABEL="$LABEL" NODE_BIN="$NODE_BIN" SERVER="$SERVER" PORT="$PORT" LOG_FILE="$LOG_FILE" PLIST="$PLIST" python3 <<'PY'
+import os
+import plistlib
+
+data = {
+    "Label": os.environ["LABEL"],
+    "ProgramArguments": [
+        os.environ["NODE_BIN"],
+        os.environ["SERVER"],
+        os.environ["PORT"],
+    ],
+    "RunAtLoad": True,
+    "KeepAlive": True,
+    "StandardOutPath": os.environ["LOG_FILE"],
+    "StandardErrorPath": os.environ["LOG_FILE"],
+}
+
+with open(os.environ["PLIST"], "wb") as handle:
+    plistlib.dump(data, handle)
+PY
+
+launchctl bootstrap "gui/$(id -u)" "$PLIST"
+sleep 1
+
+if ! lsof -nP -iTCP:"$PORT" -sTCP:LISTEN >/dev/null 2>&1; then
+  echo "Failed to start workspace hub. Log: $LOG_FILE" >&2
+  exit 1
+fi
+
+echo "Workspace hub started"
+echo "URL: http://127.0.0.1:$PORT/"
+echo "Service: $LABEL"
+echo "Log: $LOG_FILE"

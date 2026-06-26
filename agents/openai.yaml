@@ -1,0 +1,7 @@
+interface:
+  display_name: "Workspace Browser"
+  short_description: "Open project files inside Codex"
+  icon_small: "./assets/logo.svg"
+  icon_large: "./assets/logo.svg"
+  brand_color: "#3B82F6"
+  default_prompt: "Use $workspace-browser to open the current project in the Codex workspace browser."

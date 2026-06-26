@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Workspace Browser Logo</title>
+  <desc id="desc">A local workspace hub icon for Codex.</desc>
+  <rect width="512" height="512" rx="96" fill="#0f172a"/>
+  <path d="M96 152h130l34 44h156v196H96z" fill="#ffffff"/>
+  <path d="M96 196h320v196H96z" fill="#3b82f6"/>
+  <path d="M146 260h220M146 310h164" stroke="#ffffff" stroke-width="24" stroke-linecap="square"/>
+</svg>

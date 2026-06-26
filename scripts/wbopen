@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT="${1:-$PWD}"
+CODEX_HOME="${CODEX_HOME:-$HOME/.codex}"
+
+"$CODEX_HOME/bin/open-workspace-hub" 4316 >/tmp/codex-workspace-hub-launch.log 2>&1 || true
+"$CODEX_HOME/bin/open-workspace-browser" "$ROOT" 4317
