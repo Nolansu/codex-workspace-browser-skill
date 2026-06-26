@@ -130,10 +130,10 @@ const html = String.raw`<!doctype html>
   <main class="shell">
     <header>
       <div>
-        <h1>Codex 项目文件入口</h1>
-        <div class="sub" id="subtitle">固定入口页。项目端口会自动登记在这里。</div>
+        <h1>Codex Workspace Hub</h1>
+        <div class="sub" id="subtitle">A stable local entry point for project file browsers.</div>
       </div>
-      <button id="refresh">刷新</button>
+      <button id="refresh">Refresh</button>
     </header>
     <section id="list" class="list"></section>
   </main>
@@ -153,23 +153,23 @@ const html = String.raw`<!doctype html>
       if (payload === lastPayload) return;
       lastPayload = payload;
       document.getElementById("subtitle").textContent = data.pinned
-        ? "本窗口已锁定到指定项目，不会被其他对话覆盖。"
-        : "总入口页。多个对话共用时，顶部只代表最近激活项目。";
+        ? "This hub view is pinned to a specific project."
+        : "Shared hub view. The top card shows the most recently activated project.";
       const current = data.current ? '<article class="current">' +
-        '<div class="current-label">' + (data.pinned ? "本窗口锁定项目" : "最近激活项目") + '</div>' +
+        '<div class="current-label">' + (data.pinned ? "Pinned project" : "Recently activated project") + '</div>' +
         '<div class="name">' + data.current.name + '</div>' +
         '<div class="path">' + data.current.displayRoot + '</div>' +
-        '<div class="meta">端口 ' + data.current.port + ' · ' + fmtTime(data.current.updatedAt) + '</div>' +
-        '<div style="margin-top:10px"><a href="' + data.current.url + '">直接打开</a></div>' +
+        '<div class="meta">Port ' + data.current.port + ' · ' + fmtTime(data.current.updatedAt) + '</div>' +
+        '<div style="margin-top:10px"><a href="' + data.current.url + '">Open pinned</a></div>' +
       '</article>' : "";
       list.innerHTML = data.projects.length ? current + data.projects.map(project => {
         return '<article class="item">' +
           '<div><div class="name">' + project.name + '</div>' +
           '<div class="path">' + project.displayRoot + '</div>' +
-          '<div class="meta">端口 ' + project.port + ' · ' + fmtTime(project.updatedAt) + '</div></div>' +
-          '<a href="' + project.url + '">打开</a>' +
+          '<div class="meta">Port ' + project.port + ' · ' + fmtTime(project.updatedAt) + '</div></div>' +
+          '<a href="' + project.url + '">Open</a>' +
         '</article>';
-      }).join("") : '<div class="empty">还没有登记项目。让 Codex 启动一次 workspace-browser 后会自动出现在这里。</div>';
+      }).join("") : '<div class="empty">No projects registered yet. Run workspace-browser from a Codex project to add one.</div>';
     }
     document.getElementById("refresh").addEventListener("click", load);
     setInterval(load, 2000);

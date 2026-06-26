@@ -280,13 +280,13 @@ const html = String.raw`<!doctype html>
   <div class="shell">
     <header class="topbar">
       <div class="nav">
-        <button id="back" class="iconbtn" title="返回上一级" aria-label="返回上一级">‹</button>
-        <button id="refresh" class="iconbtn" title="刷新" aria-label="刷新">↻</button>
+        <button id="back" class="iconbtn" title="Go up" aria-label="Go up">‹</button>
+        <button id="refresh" class="iconbtn" title="Refresh" aria-label="Refresh">↻</button>
       </div>
-      <div class="pathbox" title=""><span>工作区</span><strong id="path">/</strong></div>
+      <div class="pathbox" title=""><span>Workspace</span><strong id="path">/</strong></div>
       <div class="tools">
-        <input id="search" class="search" placeholder="筛选文件..." aria-label="筛选文件" />
-        <button id="mode" class="iconbtn" title="切换列表/网格" aria-label="切换列表/网格">▦</button>
+        <input id="search" class="search" placeholder="Filter files..." aria-label="Filter files" />
+        <button id="mode" class="iconbtn" title="Toggle list/grid" aria-label="Toggle list/grid">▦</button>
       </div>
     </header>
     <main class="content">
@@ -294,7 +294,7 @@ const html = String.raw`<!doctype html>
         <div id="items" class="grid"></div>
       </section>
       <aside id="preview" class="preview">
-        <div class="empty">选择文件预览</div>
+        <div class="empty">Select a file to preview</div>
       </aside>
     </main>
   </div>
@@ -330,10 +330,10 @@ const html = String.raw`<!doctype html>
         return '<article class="item' + (state.selected?.path === item.path ? " selected" : "") + '" data-path="' + item.path + '">' +
           '<div class="thumb">' + thumb + '</div>' +
           '<div class="name" title="' + item.name + '">' + item.name + '</div>' +
-          '<div class="meta">' + (item.type === "folder" ? "文件夹" : fmtSize(item.size)) + '</div>' +
+          '<div class="meta">' + (item.type === "folder" ? "Folder" : fmtSize(item.size)) + '</div>' +
           '<div class="meta">' + fmtDate(item.mtime) + '</div>' +
           '</article>';
-      }).join("") : '<div class="empty">没有匹配的文件</div>';
+      }).join("") : '<div class="empty">No matching files</div>';
     }
     async function preview(item) {
       state.selected = item;
@@ -355,7 +355,7 @@ const html = String.raw`<!doctype html>
         el.innerHTML = title + '<pre></pre>';
         el.querySelector("pre").textContent = text;
       } else {
-        el.innerHTML = title + '<div class="empty">此文件可在系统中打开<br>' + fmtSize(item.size) + '</div>';
+        el.innerHTML = title + '<div class="empty">Open this file in your system<br>' + fmtSize(item.size) + '</div>';
       }
     }
     $("items").addEventListener("click", (event) => {
