@@ -51,19 +51,19 @@ Restart Codex after installation if the skill metadata does not appear immediate
 
 ## Usage
 
-Most reliable command inside a Codex project thread:
+Open the current working directory:
 
 ```bash
 $HOME/.codex/bin/wbopen "$PWD"
 ```
 
-Natural language trigger for fresh threads:
+You can also invoke the skill from Codex with:
 
 ```text
 WB_OPEN
 ```
 
-For old long-running editing threads, prefer the explicit command above. A long conversation that is already focused on editing HTML, slides, or documents can misinterpret short natural-language commands.
+For scripted or repeatable workflows, prefer the explicit `wbopen` command.
 
 ## URLs
 
@@ -79,6 +79,21 @@ scripts/uninstall.sh
 
 The uninstaller removes launchers, tools, skill files, and LaunchAgents. It leaves registry and logs in place so users can inspect or delete them manually.
 
+## Configuration
+
+By default, Workspace Browser uses:
+
+- Hub port: `4316`
+- Project browser ports: `4317` and upward
+- Install root: `${CODEX_HOME:-$HOME/.codex}`
+- Registry: `${CODEX_HOME:-$HOME/.codex}/workspace-browser-registry.json`
+
+The launchers create macOS LaunchAgents under:
+
+```text
+~/Library/LaunchAgents/
+```
+
 ## Security Notes
 
 - Services bind to `127.0.0.1`, not a public network interface.
@@ -91,39 +106,23 @@ The uninstaller removes launchers, tools, skill files, and LaunchAgents. It leav
 
 Do not expose these local ports to the public internet.
 
-## Adding Images To The GitHub Project
+## Contributing
 
-Place project images in `assets/`, then reference them from README with relative Markdown paths:
+Issues and pull requests are welcome.
 
-```md
-![Workspace Browser hub screenshot](./assets/screenshot-hub.png)
+Before opening a pull request, run:
+
+```bash
+node --check scripts/workspace-browser.js
+node --check scripts/workspace-hub.js
+bash -n scripts/open-workspace-browser
+bash -n scripts/open-workspace-hub
+bash -n scripts/wbopen
+bash -n scripts/install.sh
+bash -n scripts/uninstall.sh
 ```
 
-Recommended assets:
-
-- `assets/logo.svg` for the project logo
-- `assets/screenshot-hub.png` for the workspace hub
-- `assets/screenshot-browser.png` for the project file browser
-- `assets/screenshots/*.png` for real UI screenshots after release
-
-Use real screenshots for the README when the UI is stable. Keep paths anonymized, for example with `~` instead of a full local home directory.
-
-## GitHub Maintenance Automation
-
-Recommended setup after publishing:
-
-- Issue templates for bug reports and feature requests.
-- Pull request template with test checklist.
-- GitHub Actions workflow that runs `node --check`, shell syntax checks, and skill validation.
-- Dependabot only if package manifests are added later.
-- A GitHub App or MCP connector for Codex to triage issues, summarize comments, and draft replies.
-
-Suggested maintainer workflow:
-
-1. Let GitHub Actions validate every PR.
-2. Use Codex with the GitHub connector to summarize new issues weekly.
-3. Use labels such as `bug`, `enhancement`, `question`, `good first issue`.
-4. Keep replies short and link to the relevant README section.
+The repository also includes a GitHub Actions workflow that runs these checks on push and pull request.
 
 ## License
 

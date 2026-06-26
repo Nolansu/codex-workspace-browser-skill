@@ -1,6 +1,6 @@
 ---
 name: workspace-browser
-description: Use when the user says "WB_OPEN", "WORKSPACE_BROWSER", "OPEN_WORKSPACE_BROWSER", or asks to open an internal file browser, built-in file browser, right-side browser file view, project file window, workspace file window, "project file hub", "workspace file hub", or wants a Finder-like local project file view inside Codex instead of opening macOS Finder.
+description: Use when the user says "WB_OPEN", "WORKSPACE_BROWSER", "OPEN_WORKSPACE_BROWSER", or asks to open a local browser-based file view, built-in file browser, right-side browser file view, project file window, workspace file window, "project file hub", "workspace file hub", or wants a Finder-like local project file view inside Codex instead of opening macOS Finder.
 ---
 
 # Workspace Browser
